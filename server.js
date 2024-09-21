@@ -42,8 +42,43 @@ app.get('/roll/:number', (req, res) => {
     }
  });
 
+//4
+const shoes = [
+    { name: "Birkenstocks", price: 50, type: "sandal" },
+    { name: "Air Jordans", price: 500, type: "sneaker" },
+    { name: "Air Mahomeses", price: 501, type: "sneaker" },
+    { name: "Utility Boots", price: 20, type: "boot" },
+    { name: "Velcro Sandals", price: 15, type: "sandal" },
+    { name: "Jet Boots", price: 1000, type: "boot" },
+    { name: "Fifty-Inch Heels", price: 175, type: "heel" }
+];
+
+//app.get takes on two parameters. the first one ('/shoes', (req, res) => {this is where you are writing the code})
+
+app.get('/shoes', (req, res) => {
+
+    const type = req.query.type;
+    const minPrice = parseInt(req.query['min-price']);
+    const maxPrice = parseInt(req.query['max-price']);
+
+    //step 1: create an empty new array where in the future, it will accept the shoes you are trying to filter.
+    //step 2: create an if statement that IF the query they provided matches the parameters they want (i.e. if they only want sneaker as type)
+    // then we are going to reassign the  array of filtered shoes to that criteria and that is what we are going to respond with in a json format
+    app.get('/shoes', (req, res) => {
+        res.send(`Hello there, ${req.query.maxPrice}! I hear min-price ${req.query.minPrice} looking for max-price!`);
+    });
+    
 
 
+//if the price is less than the lowest price then exclude the shoe
+// if the price is greater than the highest price then exclude the shoe
+// if the type of shoes are specified then return the shoe
+// return full list 
+});
+
+/*shoes.forEach((name) => {
+    console.log(name.type);
+});*/
 
 
 app.listen(3000, () => {
