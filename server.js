@@ -44,7 +44,7 @@ app.get('/roll/:number', (req, res) => {
 
 //4
 const shoes = [
-    { name: "Birkenstocks", price: 50, type: "sandal" },
+    { name: "birkenStocks", price: 50, type: "sandal" },
     { name: "Air Jordans", price: 500, type: "sneaker" },
     { name: "Air Mahomeses", price: 501, type: "sneaker" },
     { name: "Utility Boots", price: 20, type: "boot" },
@@ -55,26 +55,47 @@ const shoes = [
 
 //app.get takes on two parameters. the first one ('/shoes', (req, res) => {this is where you are writing the code})
 
-app.get('/shoes', (req, res) => {
+//app.get('/shoes', (req, res) => {
 
-    const type = req.query.type;
+    /*const type = req.query.type;
     const minPrice = parseInt(req.query['min-price']);
-    const maxPrice = parseInt(req.query['max-price']);
+    const maxPrice = parseInt(req.query['max-price']);*/
+
 
     //step 1: create an empty new array where in the future, it will accept the shoes you are trying to filter.
     //step 2: create an if statement that IF the query they provided matches the parameters they want (i.e. if they only want sneaker as type)
     // then we are going to reassign the  array of filtered shoes to that criteria and that is what we are going to respond with in a json format
     app.get('/shoes', (req, res) => {
-        res.send(`Hello there, ${req.query.maxPrice}! I hear min-price ${req.query.minPrice} looking for max-price!`);
-    });
+        // Extract query parameters
+        const minPrice = parseFloat(req.query['min-price']);
+        const maxPrice = parseFloat(req.query['max-price']);
+        const type = req.query.type;
     
+        // Filter shoes based on query parameters
+        let filteredShoes = shoes;
+    
+        if (!isNaN(minPrice)) {
+            filteredShoes = filteredShoes.filter(shoe => shoe.price >= minPrice);
+        }
+    
+        if (!isNaN(maxPrice)) {
+            filteredShoes = filteredShoes.filter(shoe => shoe.price <= maxPrice);
+        }
+    
+        if (type) {
+            filteredShoes = filteredShoes.filter(shoe => shoe.type === type);
+        }
+    
+        // Respond with the filtered list of shoes
+        res.json(filteredShoes);
+    });
 
 
-//if the price is less than the lowest price then exclude the shoe
-// if the price is greater than the highest price then exclude the shoe
-// if the type of shoes are specified then return the shoe
-// return full list 
-});
+//I chatGPT this one simply for being behind on the last problem
+// I do know you have to do a parseInt() to let the CPU know that this has to be a number
+// Also, I know that a if/else statement is required 
+// Also, I know that  min and max price should be filtered and showed of anything in between and no data should be collected outside of min and max price
+// I have notes here that you can see that does not match with the answer but designated to my work. 
 
 /*shoes.forEach((name) => {
     console.log(name.type);
